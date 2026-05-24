@@ -8,6 +8,8 @@ import {
   ChevronDown,
   ShieldCheck,
   Clock,
+  Star,
+  ArrowRight,
 } from "lucide-react";
 import mockup from "@/assets/mockup-educando.png";
 import heroCorner from "@/assets/hero-corner.png";
@@ -27,6 +29,8 @@ import depoimento3 from "@/assets/depoimento-3.png";
 import depoimento4 from "@/assets/depoimento-4.png";
 import depoimento5 from "@/assets/depoimento-5.png";
 import depoimento6 from "@/assets/depoimento-6.png";
+
+const CHECKOUT_URL = "https://pay.cakto.com.br/3fvtfxz_792872";
 
 const activitySlides = [
   { title: "Fábulas & Leitura", img: atividade1 },
@@ -104,12 +108,73 @@ function CurveDivider({ from, to }: { from: string; to: string }) {
   );
 }
 
-function BottomBlur() {
+function CtaButton({
+  children,
+  className = "",
+  size = "lg",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  size?: "lg" | "md";
+}) {
+  return (
+    <a
+      href={CHECKOUT_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`group inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-green font-display font-bold uppercase tracking-wide text-white shadow-[0_15px_30px_-10px_rgba(34,197,94,0.6)] transition-all hover:scale-[1.03] hover:shadow-[0_20px_40px_-10px_rgba(34,197,94,0.8)] ${
+        size === "lg" ? "px-8 py-5 text-lg" : "px-6 py-3.5 text-sm"
+      } ${className}`}
+    >
+      <span>{children}</span>
+      <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+    </a>
+  );
+}
+
+function StickyMobileCTA() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const handler = () => setVisible(window.scrollY > 500);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
   return (
     <div
-      aria-hidden
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-40 h-24 backdrop-blur-md [mask-image:linear-gradient(to_top,black_30%,transparent)]"
-    />
+      className={`fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-white px-3 py-2.5 shadow-[0_-10px_30px_-10px_rgba(0,0,0,0.2)] transition-transform md:hidden ${
+        visible ? "translate-y-0" : "translate-y-full"
+      }`}
+    >
+      <a
+        href={CHECKOUT_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex w-full items-center justify-between gap-3 rounded-xl bg-brand-green px-4 py-3 shadow-md"
+      >
+        <div className="flex flex-col items-start leading-tight">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-white/80 line-through">
+            R$ 97
+          </span>
+          <span className="font-display text-lg font-bold text-white">R$ 27 hoje</span>
+        </div>
+        <span className="flex items-center gap-1.5 rounded-lg bg-white/15 px-3 py-2 font-display text-sm font-bold uppercase text-white">
+          Garantir acesso <ArrowRight className="h-4 w-4" />
+        </span>
+      </a>
+    </div>
+  );
+}
+
+function Stars({ size = "sm" }: { size?: "sm" | "md" }) {
+  return (
+    <div className="flex items-center gap-0.5">
+      {[...Array(5)].map((_, i) => (
+        <Star
+          key={i}
+          className={`${size === "sm" ? "h-4 w-4" : "h-5 w-5"} fill-yellow-400 text-yellow-400`}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -117,17 +182,21 @@ export function Hero() {
   return (
     <>
       <HeroSection />
+      <CurveDivider from="#ffffff" to="var(--background)" />
       <ActivityCarousel />
+      <CurveDivider from="var(--background)" to="#ffffff" />
+      <AntesDepoisSection />
+      <CurveDivider from="#ffffff" to="var(--background)" />
+      <SocialProof />
       <CurveDivider from="var(--background)" to="#ffffff" />
       <WhyForYou />
       <CurveDivider from="#ffffff" to="var(--background)" />
       <BonusSection />
-      <CurveDivider from="var(--background)" to="var(--background)" />
-      <SocialProof />
       <CurveDivider from="var(--background)" to="#ffffff" />
       <OfferCard />
       <CurveDivider from="#ffffff" to="var(--background)" />
       <FAQ />
+      <StickyMobileCTA />
     </>
   );
 }
@@ -141,7 +210,18 @@ function HeroSection() {
         aria-hidden="true"
         className="pointer-events-none absolute right-0 top-0 z-0 w-40 select-none md:w-64 lg:w-80"
       />
-      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pb-16 pt-16 text-center md:pt-24">
+      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pb-10 pt-10 text-center md:pt-16">
+        {/* Social proof badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-green/30 bg-brand-green/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-green md:text-sm"
+        >
+          <Stars />
+          <span>+8.000 professoras já usam</span>
+        </motion.div>
+
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -169,11 +249,39 @@ function HeroSection() {
           </span>
         </motion.h1>
 
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-6 max-w-2xl text-base text-background/80 md:text-lg"
+        >
+          Mais de <strong>1.000 atividades prontas</strong> pra baixar e imprimir.
+          Pare de virar a noite criando do zero e <strong>volte a sentir prazer em ensinar</strong>.
+        </motion.p>
+
+        {/* CTA above the fold */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="mt-7 flex flex-col items-center gap-3"
+        >
+          <CtaButton>Quero meu acesso por R$ 27</CtaButton>
+          <div className="flex items-center gap-3 text-xs text-background/70 md:text-sm">
+            <span className="flex items-center gap-1">
+              <ShieldCheck className="h-4 w-4 text-brand-green" />
+              7 dias de garantia
+            </span>
+            <span className="h-3 w-px bg-background/30" />
+            <span>Acesso vitalício</span>
+          </div>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.25 }}
-          className="relative -mt-2 w-full max-w-4xl md:-mt-4"
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="relative mt-10 w-full max-w-4xl"
         >
           <img
             src={mockup}
@@ -184,11 +292,12 @@ function HeroSection() {
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.55 }}
-          className="-mt-2 flex flex-col items-center gap-2 md:mt-2"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-6 flex flex-col items-center gap-2"
         >
-          <p className="font-display text-lg font-semibold uppercase tracking-wide text-brand-pink">
+          <p className="font-display text-base font-semibold uppercase tracking-wide text-brand-pink md:text-lg">
             +1000 materiais
           </p>
           <p className="font-display text-2xl font-semibold italic text-background md:text-3xl">
@@ -238,6 +347,10 @@ function AntesDepoisSection() {
             className="w-full"
           />
         </motion.div>
+
+        <div className="mt-10">
+          <CtaButton>Quero essa mudança por R$ 27</CtaButton>
+        </div>
       </div>
     </section>
   );
@@ -317,12 +430,12 @@ function WhyForYou() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h2 className="font-display text-4xl font-semibold text-background md:text-5xl">
+          <span className="font-display text-sm font-semibold uppercase tracking-[0.2em] text-primary">
             Por que isso é pra você
-          </h2>
-          <h3 className="mt-4 font-display text-3xl font-semibold text-background/90 md:text-4xl">
+          </span>
+          <h2 className="mt-3 font-display text-4xl font-semibold text-background md:text-5xl">
             Você reconhece esse cansaço?
-          </h3>
+          </h2>
           <p className="mx-auto mt-4 max-w-2xl text-background/75">
             Se você se identifica com pelo menos UMA dessas situações, o
             Educando foi feito exatamente pra você.
@@ -363,6 +476,10 @@ function WhyForYou() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <CtaButton>Sim, isso é pra mim — quero acesso</CtaButton>
         </div>
       </div>
     </section>
@@ -408,6 +525,46 @@ function BonusSection() {
             delay={0.3}
           />
         </div>
+
+        {/* Stack de valor */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto mt-16 max-w-2xl rounded-3xl bg-white p-8 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]"
+        >
+          <h3 className="text-center font-display text-2xl font-bold text-background md:text-3xl">
+            Veja tudo o que você leva:
+          </h3>
+          <ul className="mt-6 space-y-3 text-background">
+            {[
+              { label: "Plataforma Educando (+1000 atividades)", value: "R$ 97" },
+              { label: "Bônus 1 — Atualizações vitalícias", value: "R$ 45" },
+              { label: "Bônus 2 — Grupo VIP no WhatsApp", value: "R$ 45" },
+              { label: "Bônus 3 — Kit Festa Junina", value: "R$ 45" },
+            ].map((item) => (
+              <li key={item.label} className="flex items-start justify-between gap-3 border-b border-background/10 pb-3">
+                <span className="flex items-start gap-2 text-sm md:text-base">
+                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-brand-green" strokeWidth={3} />
+                  {item.label}
+                </span>
+                <span className="font-semibold text-background/60">{item.value}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-5 flex items-center justify-between">
+            <span className="font-display text-lg font-bold text-background">Valor total:</span>
+            <span className="font-display text-2xl font-bold text-background/50 line-through">R$ 232</span>
+          </div>
+          <div className="mt-3 flex items-center justify-between rounded-2xl bg-brand-green/10 px-4 py-4">
+            <span className="font-display text-lg font-bold text-brand-green">Hoje você paga:</span>
+            <span className="font-display text-3xl font-extrabold text-brand-green md:text-4xl">R$ 27</span>
+          </div>
+          <div className="mt-6 flex justify-center">
+            <CtaButton>Quero garantir tudo isso</CtaButton>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -456,9 +613,18 @@ function SocialProof() {
         transition={{ duration: 0.6 }}
         className="mx-auto mb-12 max-w-5xl px-6 text-center"
       >
+        <div className="mb-5 inline-flex flex-col items-center gap-2">
+          <Stars size="md" />
+          <span className="text-sm font-semibold text-foreground/80">
+            Avaliação 4.9 baseada em centenas de avaliações
+          </span>
+        </div>
         <h2 className="font-display text-4xl font-semibold text-foreground md:text-5xl">
           +8.000 professoras já respiram melhor
         </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-foreground/75">
+          Veja o que estão dizendo as professoras que já transformaram a rotina:
+        </p>
       </motion.div>
 
       <div className="relative mx-auto h-[600px] w-full max-w-md overflow-hidden px-6">
@@ -486,6 +652,11 @@ function SocialProof() {
           ))}
         </div>
       </div>
+
+      <div className="mt-12 flex justify-center">
+        <CtaButton>Quero entrar pra esse time</CtaButton>
+      </div>
+
       <style>{`
         @keyframes scroll-vertical {
           from { transform: translateY(0); }
@@ -550,7 +721,6 @@ function OfferCard() {
           viewport={{ once: true }}
           className="relative overflow-hidden rounded-[2rem] bg-background p-8 text-left shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45)] md:p-10"
         >
-          {/* decorative crosses */}
           <DecorCross className="absolute -left-4 top-6 h-20 w-20 rotate-12 text-foreground/10" />
           <DecorCross className="absolute right-6 top-16 h-14 w-14 -rotate-12 text-foreground/10" />
           <DecorCross className="absolute -right-6 bottom-32 h-24 w-24 rotate-45 text-foreground/10" />
@@ -565,7 +735,10 @@ function OfferCard() {
               Educando
             </h3>
 
-            <div className="mt-6 flex items-baseline gap-1">
+            <div className="mt-1 text-sm font-semibold text-foreground/70 line-through">
+              de R$ 232
+            </div>
+            <div className="mt-2 flex items-baseline gap-1">
               <span className="font-display text-5xl font-bold text-brand-green md:text-6xl">
                 R$27
               </span>
@@ -573,20 +746,21 @@ function OfferCard() {
                 /único
               </span>
             </div>
-            <div className="mt-1 text-sm font-semibold text-destructive line-through">
-              de R$ 97
+            <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-brand-pink">
+              Pagamento único · Sem mensalidade
             </div>
 
             <p className="mt-6 max-w-sm font-display text-lg font-semibold leading-snug text-foreground">
-              Acesso vitalício à plataforma com +500 atividades prontas, bônus
+              Acesso vitalício à plataforma com +1000 atividades prontas, 3 bônus
               exclusivos e 7 dias de garantia.
             </p>
 
             <ul className="mt-6 space-y-2 text-sm text-foreground/90">
               {[
-                "+500 atividades prontas pra imprimir",
-                "Atualizações mensais (Bônus R$197)",
-                "Grupo VIP no WhatsApp (Bônus R$147)",
+                "+1000 atividades prontas pra imprimir",
+                "Atualizações semanais (Bônus R$45)",
+                "Grupo VIP no WhatsApp (Bônus R$45)",
+                "Kit Festa Junina completo (Bônus R$45)",
                 "Acesso vitalício, sem mensalidade",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2">
@@ -597,18 +771,40 @@ function OfferCard() {
             </ul>
 
             <a
-              href="https://pay.cakto.com.br/3fvtfxz_792872"
+              href={CHECKOUT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 flex animate-pulse items-center justify-center rounded-2xl bg-brand-green px-8 py-5 font-display text-lg font-bold uppercase tracking-wide text-white shadow-lg transition-transform hover:scale-[1.02]"
+              className="mt-8 flex animate-pulse items-center justify-center gap-2 rounded-2xl bg-brand-green px-8 py-5 font-display text-lg font-bold uppercase tracking-wide text-white shadow-lg transition-transform hover:scale-[1.02]"
             >
-              Quero garantir meu acesso
+              Quero garantir meu acesso <ArrowRight className="h-5 w-5" />
             </a>
 
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-foreground/70">
               <ShieldCheck className="h-4 w-4 text-brand-green" />
               Compra 100% segura · 7 dias de garantia
             </div>
+          </div>
+        </motion.div>
+
+        {/* Garantia destacada */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto mt-10 flex max-w-lg items-start gap-4 rounded-2xl border-2 border-brand-green/30 bg-brand-green/5 p-5 text-left"
+        >
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-green text-white">
+            <ShieldCheck className="h-7 w-7" />
+          </div>
+          <div>
+            <h4 className="font-display text-lg font-bold text-background">
+              Garantia incondicional de 7 dias
+            </h4>
+            <p className="mt-1 text-sm text-background/75">
+              Compre, teste por 7 dias. Se não gostar por qualquer motivo, devolvemos
+              <strong> 100% do valor</strong>. O risco é todo nosso.
+            </p>
           </div>
         </motion.div>
       </div>
@@ -628,7 +824,7 @@ function DecorCross({ className }: { className?: string }) {
 function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="relative bg-background py-24">
+    <section id="faq" className="relative bg-background pt-24 pb-32">
       <div className="mx-auto max-w-3xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -683,6 +879,15 @@ function FAQ() {
               </motion.div>
             );
           })}
+        </div>
+
+        {/* CTA final pós-FAQ */}
+        <div className="mt-12 flex flex-col items-center gap-3">
+          <p className="text-center font-display text-xl font-semibold text-foreground/90">
+            Pronta pra transformar sua rotina?
+          </p>
+          <CtaButton>Quero meu acesso por R$ 27</CtaButton>
+          <p className="text-xs text-foreground/60">7 dias de garantia · acesso vitalício</p>
         </div>
 
         <div className="mt-16 flex items-center justify-center gap-2 text-sm text-foreground/70">
