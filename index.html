@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educando — Atividades prontas para professoras do 1º ao 5º ano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --radius: 1rem;
+      --background: #3d3d6b;
+      --foreground: #ffffff;
+      --primary: #d4f000;
+      --brand-pink: #f472b6;
+      --brand-green: #4ade80;
+      --destructive: #f87171;
+      --card-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Archivo', 'Plus Jakarta Sans', system-ui, sans-serif;
+      background-color: var(--background);
+      color: var(--foreground);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Archivo Black', 'Archivo', system-ui, sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    .section-white { background-color: #ffffff; color: #3d3d6b; }
+    .section-dark { background-color: var(--background); color: var(--foreground); }
+
+    .btn-primary {
+      background-color: var(--brand-green);
+      color: white;
+      padding: 1.25rem 2rem;
+      border-radius: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: transform 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.02);
+    }
+
+    .card {
+      background: white;
+      border-radius: 1.5rem;
+      box-shadow: var(--card-shadow);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-box {
+      background-color: var(--background);
+      border-radius: 2rem;
+      padding: 3rem 2rem;
+      box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.45);
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .highlight {
+      color: var(--brand-pink);
+      font-style: italic;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .container {
+      max-width: 80rem;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .curve-divider {
+      width: 100%;
+      height: 100px;
+      background: url('data:image/svg+xml,<svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C320,120 720,0 1080,60 C1260,90 1380,80 1440,50 L1440,120 L0,120 Z" fill="white"/></svg>') no-repeat center;
+      background-size: cover;
+    }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 2px solid rgba(212, 240, 0, 0.4);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
+    }
+
+    .benefit-no {
+      background-color: rgba(248, 113, 113, 0.1);
+      padding: 1.25rem;
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .benefit-yes {
+      background-color: rgba(74, 222, 128, 0.1);
+      padding: 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .icon-x, .icon-check {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      font-weight: bold;
+      color: white;
+      font-size: 18px;
+    }
+
+    .icon-x {
+      background-color: var(--destructive);
+    }
+
+    .icon-check {
+      background-color: var(--brand-green);
+    }
+
+    section {
+      padding: 6rem 0;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .underline-pink {
+      position: relative;
+      display: inline-block;
+    }
+
+    .underline-pink::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--brand-pink);
+      border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 3rem 0;
+      }
+
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .benefit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .benefit-no, .benefit-yes {
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .benefit-yes {
+        border-bottom: none;
+      }
+
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.875rem; }
+      h3 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO SECTION -->
+<section class="section-white relative overflow-hidden">
+  <div class="container">
+    <div class="text-center py-24 relative">
+      <img src="src/assets/hero-corner.png" alt="" class="absolute top-0 right-0 w-40 md:w-64 lg:w-80 opacity-50" style="pointer-events: none;">
+
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+        <span class="highlight">Sua aula</span>
+        <br>
+        planejada em <u>5 minutos.</u>
+      </h1>
+
+      <img src="src/assets/mockup-educando.png" alt="Plataforma Educando" class="w-full max-w-4xl mx-auto my-12 shadow-lg">
+
+      <div class="mt-12">
+        <p class="text-lg font-bold text-brand-pink uppercase tracking-wider mb-4">+1000 materiais</p>
+        <h2 class="text-2xl md:text-3xl font-bold mb-8">
+          Materiais prontos para <span class="highlight">baixar e imprimir</span> na palma da sua mão
+        </h2>
+        <img src="src/assets/kit-atividades.png" alt="Kit de atividades" class="w-full max-w-3xl mx-auto shadow-lg">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATIVIDADES CAROUSEL -->
+<section class="section-dark py-24">
+  <div class="container">
+    <div class="text-center mb-12">
+      <p class="text-sm font-bold uppercase tracking-[0.2em] text-primary mb-3">Conteúdo da plataforma</p>
+      <h2 class="text-3xl md:text-4xl font-bold mb-3">Veja algumas atividades por dentro</h2>
+      <p class="opacity-75">Aqui você encontra atividades para qualquer matéria separada por categorias.</p>
+    </div>
+
+    <div class="overflow-x-auto">
+      <div class="flex gap-6 pb-6">
+        <div class="flex-shrink-0 w-72 bg-white rounded-3xl overflow-hidden shadow-lg p-3">
+          <img src="src/assets/atividade-1.png" alt="Fábulas & Leitura" class="w-full h-96 object-cover rounded-2xl">
+          <p class="text-center font-bold text-background py-3">Fábulas & Leitura</p>
+        </div>
+        <div class="flex-shrink-0 w-72 bg-white rounded-3xl overflow-hidden shadow-lg p-3">
+          <img src="src/assets/atividade-2.png" alt="Multiplicação" class="w-full h-96 object-cover rounded-2xl">
+          <p class="text-center font-bold text-background py-3">Multiplicação</p>
+        </div>
+        <div class="flex-shrink-0 w-72 bg-white rounded-3xl overflow-hidden shadow-lg p-3">
+          <img src="src/assets/atividade-3.png" alt="Operações" class="w-full h-96 object-cover rounded-2xl">
+          <p class="text-center font-bold text-background py-3">Operações</p>
+        </div>
+        <div class="flex-shrink-0 w-72 bg-white rounded-3xl overflow-hidden shadow-lg p-3">
+          <img src="src/assets/atividade-4.png" alt="Caligrafia" class="w-full h-96 object-cover rounded-2xl">
+          <p class="text-center font-bold text-background py-3">Caligrafia</p>
+        </div>
+        <div class="flex-shrink-0 w-72 bg-white rounded-3xl overflow-hidden shadow-lg p-3">
+          <img src="src/assets/atividade-5.png" alt="Alfabetização" class="w-full h-96 object-cover rounded-2xl">
+          <p class="text-center font-bold text-background py-3">Alfabetização</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="curve-divider" style="background-color: var(--background); height: 60px; position: relative;">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="width: 100%; height: 100%; display: block;">
+    <path d="M0,40 C320,120 720,0 1080,60 C1260,90 1380,80 1440,50 L1440,120 L0,120 Z" fill="white"/>
+  </svg>
+</div>
+
+<!-- POR QUE ISSO É PRA VOCÊ -->
+<section class="section-white py-24">
+  <div class="container">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">Por que isso é pra você</h2>
+      <h3 class="text-2xl md:text-3xl font-bold mb-4 opacity-90">Você reconhece esse cansaço?</h3>
+      <p class="opacity-75 max-w-2xl mx-auto">
+        Se você se identifica com pelo menos UMA dessas situações, o Educando foi feito exatamente pra você.
+      </p>
+    </div>
+
+    <div class="grid-2">
+      <div class="benefit-grid">
+        <div class="benefit-no">
+          <div class="icon-x">✕</div>
+          <div class="text-left">
+            <p class="text-xs font-bold uppercase text-destructive">Antes</p>
+            <p class="text-sm font-medium text-destructive mt-1">Passar a noite criando atividade do zero</p>
+          </div>
+        </div>
+        <div class="benefit-yes">
+          <div class="icon-check">✓</div>
+          <div class="text-left">
+            <p class="text-xs font-bold uppercase text-brand-green">Depois</p>
+            <p class="text-sm font-semibold text-brand-green mt-1">Plano da semana pronto em 5 minutos</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="benefit-grid">
+        <div class="benefit-no">
+          <div class="icon-x">✕</div>
+          <div class="text-left">
+            <p class="text-xs font-bold uppercase text-destructive">Antes</p>
+            <p class="text-sm font-medium text-destructive mt-1">Pagar do próprio bolso por imprimir material</p>
+          </div>
+        </div>
+        <div class="benefit-yes">
+          <div class="icon-check">✓</div>
+          <div class="text-left">
+            <p class="text-xs font-bold uppercase text-brand-green">Depois</p>
+            <p class="text-sm font-semibold text-brand-green mt-1">Centenas de PDFs prontos pra imprimir</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="benefit-grid">
+        <div class="benefit-no">
+          <div class="icon-x">✕</div>
+          <div class="text-left">
+            <p class="text-xs font-bold uppercase text-destructive">Antes</p>
+            <p class="text-sm font-medium text-destructive mt-1">Sentir culpa por não dar conta de tudo</p>
+          </div>
+        </div>
+        <div class="benefit-yes">
+          <div class="icon-check">✓</div>
+          <div class="text-left">
+            <p class="text-xs font-bold uppercase text-brand-green">Depois</p>
+            <p class="text-sm font-semibold text-brand-green mt-1">Tempo livre pra você e sua família</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="benefit-grid">
+        <div class="benefit-no">
+          <div class="icon-x">✕</div>
+          <div class="text-left">
+            <p class="text-xs font-bold uppercase text-destructive">Antes</p>
+            <p class="text-sm font-medium text-destructive mt-1">Aulas repetitivas que não engajam</p>
+          </div>
+        </div>
+        <div class="benefit-yes">
+          <div class="icon-check">✓</div>
+          <div class="text-left">
+            <p class="text-xs font-bold uppercase text-brand-green">Depois</p>
+            <p class="text-sm font-semibold text-brand-green mt-1">Atividades dinâmicas que prendem a turma</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="curve-divider" style="background-color: white; height: 60px; position: relative;">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="width: 100%; height: 100%; display: block;">
+    <path d="M0,40 C320,120 720,0 1080,60 C1260,90 1380,80 1440,50 L1440,120 L0,120 Z" fill="var(--background)"/>
+  </svg>
+</div>
+
+<!-- BÔNUS EXCLUSIVOS -->
+<section class="section-dark py-24">
+  <div class="container">
+    <div class="text-center mb-16">
+      <h2 class="text-5xl md:text-6xl font-bold mb-4">🎁 Bônus exclusivos</h2>
+      <p class="text-2xl md:text-3xl font-bold opacity-85">Comprando hoje, você leva grátis:</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <img src="src/assets/bonus-1-updates.png" alt="Atualizações mensais">
+        <p class="mb-4">Toda semana adicionamos novas atividades à plataforma. Você recebe acesso vitalício a todas as próximas atualizações sem pagar nada a mais.</p>
+        <p class="inline-block bg-brand-green bg-opacity-20 text-brand-green px-4 py-2 rounded-full text-sm font-semibold">Valor real: <span class="line-through opacity-70">R$ 45</span> · Hoje grátis</p>
+      </div>
+
+      <div class="card">
+        <img src="src/assets/bonus-2-vip.png" alt="Grupo VIP">
+        <p class="mb-4">Comunidade exclusiva com outras professoras pra trocar ideias, tirar dúvidas e receber materiais antes de todo mundo.</p>
+        <p class="inline-block bg-brand-green bg-opacity-20 text-brand-green px-4 py-2 rounded-full text-sm font-semibold">Valor real: <span class="line-through opacity-70">R$ 45</span> · Hoje grátis</p>
+      </div>
+
+      <div class="card">
+        <img src="src/assets/bonus-3-festa-junina.png" alt="Kit Festa Junina">
+        <p class="mb-4">Kit completo de materiais de decoração prontos pra imprimir e deixar sua sala de aula linda na Festa Junina.</p>
+        <p class="inline-block bg-brand-green bg-opacity-20 text-brand-green px-4 py-2 rounded-full text-sm font-semibold">Valor real: <span class="line-through opacity-70">R$ 45</span> · Hoje grátis</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="curve-divider" style="background-color: var(--background); height: 60px; position: relative;">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="width: 100%; height: 100%; display: block;">
+    <path d="M0,40 C320,120 720,0 1080,60 C1260,90 1380,80 1440,50 L1440,120 L0,120 Z" fill="white"/>
+  </svg>
+</div>
+
+<!-- SOCIAL PROOF -->
+<section class="section-dark py-24">
+  <div class="container">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold">+8.000 professoras já respiram melhor</h2>
+    </div>
+
+    <div class="grid-2 max-w-2xl mx-auto">
+      <div class="bg-white rounded-2xl overflow-hidden shadow-lg p-4">
+        <img src="src/assets/depoimento-1.png" alt="Depoimento" class="w-full">
+      </div>
+      <div class="bg-white rounded-2xl overflow-hidden shadow-lg p-4">
+        <img src="src/assets/depoimento-2.png" alt="Depoimento" class="w-full">
+      </div>
+      <div class="bg-white rounded-2xl overflow-hidden shadow-lg p-4">
+        <img src="src/assets/depoimento-3.png" alt="Depoimento" class="w-full">
+      </div>
+      <div class="bg-white rounded-2xl overflow-hidden shadow-lg p-4">
+        <img src="src/assets/depoimento-5.png" alt="Depoimento" class="w-full">
+      </div>
+      <div class="bg-white rounded-2xl overflow-hidden shadow-lg p-4">
+        <img src="src/assets/depoimento-6.png" alt="Depoimento" class="w-full">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="curve-divider" style="background-color: white; height: 60px; position: relative;">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="width: 100%; height: 100%; display: block;">
+    <path d="M0,40 C320,120 720,0 1080,60 C1260,90 1380,80 1440,50 L1440,120 L0,120 Z" fill="var(--background)"/>
+  </svg>
+</div>
+
+<!-- OFERTA -->
+<section class="section-white py-24">
+  <div class="container max-w-2xl">
+    <div class="price-box">
+      <div class="inline-flex items-center gap-2 bg-primary bg-opacity-20 text-background px-3 py-1 rounded-full text-xs font-bold uppercase mb-6">
+        ⭐ Oferta de lançamento
+      </div>
+
+      <h3 class="text-5xl md:text-6xl font-bold mb-6">Educando</h3>
+
+      <div class="mb-6">
+        <span class="text-5xl md:text-6xl font-bold text-brand-green">R$27</span>
+        <span class="text-2xl font-semibold opacity-70">/único</span>
+      </div>
+
+      <p class="text-destructive line-through text-sm font-semibold mb-6">de R$ 97</p>
+
+      <p class="text-lg font-semibold mb-8 leading-snug">
+        Acesso vitalício à plataforma com +500 atividades prontas, bônus exclusivos e 7 dias de garantia.
+      </p>
+
+      <ul class="space-y-3 mb-8 text-sm opacity-90">
+        <li class="flex items-center gap-2">
+          <span class="text-brand-green font-bold">✓</span>
+          +500 atividades prontas pra imprimir
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-brand-green font-bold">✓</span>
+          Atualizações mensais (Bônus R$197)
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-brand-green font-bold">✓</span>
+          Grupo VIP no WhatsApp (Bônus R$147)
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-brand-green font-bold">✓</span>
+          Acesso vitalício, sem mensalidade
+        </li>
+      </ul>
+
+      <a href="https://pay.cakto.com.br/3fvtfxz_792872" target="_blank" class="btn-primary w-full text-center block mb-4" style="color: white;">
+        Quero garantir meu acesso
+      </a>
+
+      <p class="text-center text-xs opacity-70">
+        ✓ Compra 100% segura · 7 dias de garantia
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="curve-divider" style="background-color: white; height: 60px; position: relative;">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="width: 100%; height: 100%; display: block;">
+    <path d="M0,40 C320,120 720,0 1080,60 C1260,90 1380,80 1440,50 L1440,120 L0,120 Z" fill="var(--background)"/>
+  </svg>
+</div>
+
+<!-- FAQ -->
+<section class="section-dark py-24">
+  <div class="container max-w-3xl">
+    <div class="text-center mb-12">
+      <p class="text-sm font-bold uppercase tracking-[0.2em] text-primary mb-3">Tire suas dúvidas</p>
+      <h2 class="text-4xl md:text-5xl font-bold mb-3">Perguntas frequentes</h2>
+      <p class="opacity-75">Tudo o que você precisa saber antes de começar.</p>
+    </div>
+
+    <div class="space-y-3">
+      <details class="group border border-white border-opacity-10 rounded-2xl bg-white bg-opacity-5 backdrop-blur p-5 cursor-pointer">
+        <summary class="flex items-center justify-between font-bold text-lg">
+          <span>Pra quem é o Educando?</span>
+          <span class="group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="mt-4 text-sm opacity-80">Para professoras do 1º ao 5º ano que querem economizar tempo no planejamento e ter atividades prontas, dinâmicas e divertidas pra aplicar em sala.</p>
+      </details>
+
+      <details class="group border border-white border-opacity-10 rounded-2xl bg-white bg-opacity-5 backdrop-blur p-5 cursor-pointer">
+        <summary class="flex items-center justify-between font-bold text-lg">
+          <span>Como recebo o acesso?</span>
+          <span class="group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="mt-4 text-sm opacity-80">Imediatamente após a confirmação do pagamento, você recebe o login por e-mail e já pode baixar e imprimir tudo.</p>
+      </details>
+
+      <details class="group border border-white border-opacity-10 rounded-2xl bg-white bg-opacity-5 backdrop-blur p-5 cursor-pointer">
+        <summary class="flex items-center justify-between font-bold text-lg">
+          <span>Posso imprimir e usar com toda minha turma?</span>
+          <span class="group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="mt-4 text-sm opacity-80">Sim! Você pode imprimir quantas vezes quiser pra usar com seus alunos. O uso comercial (revenda) não é permitido.</p>
+      </details>
+
+      <details class="group border border-white border-opacity-10 rounded-2xl bg-white bg-opacity-5 backdrop-blur p-5 cursor-pointer">
+        <summary class="flex items-center justify-between font-bold text-lg">
+          <span>Funciona no celular?</span>
+          <span class="group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="mt-4 text-sm opacity-80">Sim, a plataforma é 100% responsiva. Você acessa do computador, tablet ou celular.</p>
+      </details>
+
+      <details class="group border border-white border-opacity-10 rounded-2xl bg-white bg-opacity-5 backdrop-blur p-5 cursor-pointer">
+        <summary class="flex items-center justify-between font-bold text-lg">
+          <span>E se eu não gostar?</span>
+          <span class="group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="mt-4 text-sm opacity-80">Você tem 7 dias de garantia incondicional. Não gostou? Devolvemos 100% do valor, sem perguntas.</p>
+      </details>
+    </div>
+
+    <div class="text-center mt-16 text-sm opacity-70">
+      ❤️ Feito com carinho pra quem ensina o Brasil.
+    </div>
+  </div>
+</section>
+
+<script>
+  // Pixel tracking
+  window.pixelId = "6a1227e587c5368f69744172";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+
+  var b = document.createElement("script");
+  b.src = "https://cdn.utmify.com.br/scripts/utms/latest.js";
+  b.async = true;
+  b.defer = true;
+  document.head.appendChild(b);
+</script>
+
+</body>
+</html>
